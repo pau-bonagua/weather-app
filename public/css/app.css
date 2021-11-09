@@ -142,12 +142,19 @@
 
 /* course */
 #venue {
-  padding: 8vw 8vw 8vw 8vw;
+  padding: 4vw 8vw;
   text-align: center;
+  background-color: #637b9e;
+}
+#venue h1 {
+  padding: 15px;
+  font-size: 2.5rem;
+  color: #20335a;
 }
 #venue .venue-inputs {
   background-color: transparent;
   padding: 5px;
+  padding-top: 15px;
   display: flex;
   justify-content: center;
 }

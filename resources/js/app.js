@@ -21,7 +21,6 @@ window.Vue = require('vue').default;
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('weather-box-component', require('./components/WeatherBoxComponent').default);
-Vue.component('navigation-component', require('./components/NavigationComponent').default);
 Vue.component('greeting-component', require('./components/GreetingComponent').default);
 Vue.component('footer-component', require('./components/FooterComponent').default);
 Vue.component('venue-component', require('./components/VenueComponent').default);

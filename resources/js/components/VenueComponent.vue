@@ -33,6 +33,11 @@
         </div>
       </div>
     </div>
+    
+
+    <div v-else>
+      <h1>Sorry, It's not a valid city name</h1>
+    </div>
   </div>
 </template>
 

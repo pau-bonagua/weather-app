@@ -21,20 +21,30 @@ class VenueController extends Controller
             'near' => $city,
             'locale' => 'en',
         ]);
-        
-        $arr_venue = [];
-        foreach ($venues['response']['venues'] as $venue) {
-            $arr_venue[] = [
-                'id'            => $venue['id'],
-                'name'          => $venue['name'],
-                'address'      => $venue['location']['formattedAddress'],
-                'latitude'      => $venue['location']['lat'],
-                'longitude'     => $venue['location']['lng'],
-                'type'          => $venue['categories'][0]['name']
-            ];
+
+        // return $venues['meta']['code'];
+
+        if ($venues['meta']['code'] == 200) {
+            $arr_venue = [];
+            foreach ($venues['response']['venues'] as $venue) {
+                $arr_venue[] = [
+                    'id'            => $venue['id'],
+                    'name'          => $venue['name'],
+                    'address'      => $venue['location']['formattedAddress'],
+                    'latitude'      => $venue['location']['lat'],
+                    'longitude'     => $venue['location']['lng'],
+                    'type'          => $venue['categories'][0]['name']
+                ];
+            }
+
+            $data['venue'] = $arr_venue;
+        }
+        else
+        {
+            $data['venue'] = [];
         }
 
-        $data['venue'] = $arr_venue;
+
         return $data['venue'];
     }
     /**
