@@ -4,7 +4,7 @@ I've implemented the UI/UX in a way that it's users may easily figure out how th
 It means something that can be naturally and instinctively understood and comprehended, I try to keep things clear and concise at the same time.
 The UI is also responsive to all kinds of devices.
 
-In coding implementationg I've tried to use Vue for my frontend and Laravel for my backend. I've made use of the MVC pattern that the laravel follows,
+In coding implementation I've tried to use Vue for my frontend and Laravel for my backend. I've made use of the MVC pattern that the laravel follows,
 however, since I'm not really interacting with the database and just some api's I've made use the model as storage for my keys with setters and getters.
 I created vue components that will retrieve user inputs. After the system has gathered the inputs I've used fetch method to let the client side communicate with the backend. But, instead
 of using fetch to directly access the api's from openweather and foursquare, I've created my own api links using the api.php. I decided to do that because I want to filter unnecessary inputs that will go through
