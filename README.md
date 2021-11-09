@@ -1,65 +1,57 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+I've implemented the UI/UX in a way that it's users may easily figure out how the application works and avoids confusion.
+It means something that can be naturally and instinctively understood and comprehended, I try to keep things clear and concise at the same time.
+The UI is also responsive to all kinds of devices.
 
-## About Laravel
+In coding implementationg I've tried to use Vue for my frontend and Laravel for my backend. I've made use of the MVC pattern that the laravel follows,
+however, since I'm not really interacting with the database and just some api's I've made use the model as storage for my keys with setters and getters.
+I created vue components that will retrieve user inputs. After the system has gathered the inputs I've used fetch method to let the client side communicate with the backend. But, instead
+of using fetch to directly access the api's from openweather and foursquare, I've created my own api links using the api.php. I decided to do that because I want to filter unnecessary inputs that will go through
+to the api and at the same time I can return a filtered result coming from the api's. I removed the irrelevant informations before sending back the data to the client side.   
+For interacting with the api's I've used HTTP Client that is provided by laravel, allowing devs to quickly make outgoing HTTP requests to communicate with other web applications. 
+-----------------------------------------------------------------------------------------------------------------------------
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+SELECT DISTINCT
+CONCAT('T',LPAD(A.id, 11, 0)) AS ID,
+A.nickname as nickname,
+CASE
+    WHEN A.status = 0 THEN 'discontinued'
+    WHEN A.status = 1 THEN 'active'
+    WHEN A.status = 2 THEN 'deactivated'
+    ELSE 'undefined'
+END AS Status,
+CASE
+    WHEN B.role = 1 THEN 'trainer'
+    WHEN B.role = 2 THEN 'assesor'
+    WHEN B.role = 3 THEN 'staff'
+    ELSE 'undefined'
+END AS Roles
+FROM trn_teacher AS A
+INNER JOIN trn_teacher_role B ON B.teacher_id = A.id
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+----------------------------------------------------------------
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+SELECT A.id AS ID, A.nickname AS nickname,
+SUM(CASE 
+         WHEN B.status = '1' THEN 1
+             ELSE 0
+           END) AS Open,
+SUM(CASE 
+         WHEN B.status = '3' THEN 1
+             ELSE 0
+           END) AS Reserved,
+SUM(CASE 
+         WHEN C.result = '1' THEN 1
+             ELSE 0
+           END) AS Taught,
+SUM(CASE 
+         WHEN C.result = '2' THEN 1
+             ELSE 0
+           END) AS NoShow
+FROM trn_teacher AS A
+INNER JOIN trn_time_table B ON B.teacher_id = A.id
+INNER JOIN trn_evaluation C ON C.teacher_id = A.id
+WHERE (A.status = 1 OR A.status = 2)
+GROUP BY A.id, A.nickname
