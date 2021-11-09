@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\VenueController;
 use App\Http\Controllers\WeatherController;
+use App\Models\Weather;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +17,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('weather.index');
 });
 
 Route::resource('/weather', WeatherController::class);
+

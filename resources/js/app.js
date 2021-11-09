@@ -20,6 +20,12 @@ window.Vue = require('vue').default;
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('weather-box-component', require('./components/WeatherBoxComponent').default);
+Vue.component('navigation-component', require('./components/NavigationComponent').default);
+Vue.component('greeting-component', require('./components/GreetingComponent').default);
+Vue.component('footer-component', require('./components/FooterComponent').default);
+Vue.component('venue-component', require('./components/VenueComponent').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

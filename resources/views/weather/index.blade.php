@@ -7,61 +7,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/app.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
     <div id="app">
         <nav>
-            <div class="logo">
-                <h1>Explore <span style="vertical-align:sub;">Japan</span></h1>
-            </div>
-            <div class="navigation">
-                <ul>
-                    <i class="fas fa-times"></i>
-                    <li><a href="#">Login2</a></li>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-                <img class="hamburger-menu" src="./img/hamburger.png" alt="">
-            </div>
+            <!-- <navigation-component/> -->
         </nav>
 
-        <section id="section-weather">
+        <section id="section-weather" style="background-image:linear-gradient(#87cbf8, rgba(5, 4, 46, 0.7)), url('img/bg.png')">
 
-            <div class="box1">
+            <div class="weather-container">
                 <div class="weather-greetings">
-                    <h1>Welcome <i>&#9961;</i> </h1>
-                    <h1>Go and Explore Japan </h1>
-                    <p>Have the power to check the weather and the available venus near you</p>
+                    <greeting-component />
                 </div>
                 <div class="weather-display">
-                    <div>
-                        <div class="search-box">
-                            <input type="text" class="search-bar" placeholder="search" />
-                        </div>
-
-                        <div class="weather-wrap">
-                            <div class="location-box">
-                                <div class="location">Tokyo , JAPAN</div>
-                                <div class="date"> dateBuilder</div>
-                            </div>
-
-                            <div class="weather-box">
-                                <div class="temp"> 36°c</div>
-                                <div class="weather"> Cloudy</div>
-                            </div>
-                        </div>
-                    </div>
+                    <weather-box-component />
                 </div>
-
             </div>
-
-
-
-
-
         </section>
+        <section>
+            <venue-component/>
+        </section>
+
+        <footer>
+            <footer-component />
+        </footer>
+
+
+
+
     </div>
 
 
